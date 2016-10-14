@@ -110,6 +110,23 @@ if(CUDA_BLAS)
         set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/cuda)
     endif(CUDA_FOUND)
 
+elseif(CLBLAS_FLAG)
+	message("Build clblas")
+    find_package(CLBLAS)
+
+    if (CLBLAS_FOUND)
+        message("CLBLAS found!")
+
+        if (CMAKE_BUILD_TYPE STREQUAL "Release")
+        else ()
+
+        endif ()
+
+        CUDA_ADD_LIBRARY(nd4j SHARED opencl/NativeBlas.cpp opencl/NativeOps.cpp)
+        target_link_libraries(nd4j ${CLBLAS_LIBRARIES})
+        set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/opencl)
+	endif (CLBLAS_FOUND)
+
 elseif(CPU_BLAS)
     message("CPU BLAS")
     add_definitions(-D__CPUBLAS__=true)

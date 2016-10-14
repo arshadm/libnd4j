@@ -178,6 +178,8 @@ fi
 
 if [ "$CHIP" == "cpu" ]; then
   BLAS_ARG="-DCPU_BLAS=true -DBLAS=TRUE"
+  elif [ "$CHIP" == "opencl" ]; then
+  	BLAS_ARG="-DCL_BLAS=true -DBLAS=TRUE"
   else
        BLAS_ARG="-DCUDA_BLAS=true -DBLAS=TRUE"
 fi
